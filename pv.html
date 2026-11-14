@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<meta name="theme-color" content="#070b17">
+<title>PVFinder | Access Plans</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{color-scheme:dark;--bg:#070b17;--panel:#0e1530;--panel2:#131c3d;--line:#222f52;--white:#eef2ff;--muted:#9aa8c7;--cyan:#3ddcf5;--purple:#8b7bff;--ok:#7be4b8;--ease:cubic-bezier(.2,.7,.2,1)}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;min-height:100vh;color:var(--white);font:16px/1.6 "Plus Jakarta Sans",system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+.container{width:min(1060px,calc(100% - 36px));margin:auto;position:relative;z-index:1}
+
+/* ambient background */
+.bg{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.orb{position:absolute;border-radius:50%;filter:blur(90px);opacity:.5;animation:drift 18s ease-in-out infinite alternate}
+.orb.a{width:520px;height:520px;background:#2a3f86;top:-160px;right:-120px}
+.orb.b{width:460px;height:460px;background:#3a1f7a;bottom:-140px;left:-140px;animation-duration:24s}
+.grid-bg{position:absolute;inset:0;background-image:linear-gradient(#ffffff08 1px,transparent 1px),linear-gradient(90deg,#ffffff08 1px,transparent 1px);background-size:56px 56px;mask-image:radial-gradient(ellipse at 50% 0,#000 0,transparent 70%);-webkit-mask-image:radial-gradient(ellipse at 50% 0,#000 0,transparent 70%)}
+@keyframes drift{to{transform:translate(60px,40px) scale(1.1)}}
+
+/* header */
+header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:24px 0;animation:rise .7s var(--ease) both}
+.brand{font-size:19px;font-weight:800;letter-spacing:-.3px;display:flex;align-items:center;gap:10px}
+.brand span:first-child{display:grid;place-items:center;width:36px;height:36px;border-radius:11px;color:#06101f;background:linear-gradient(135deg,var(--cyan),var(--purple));box-shadow:0 6px 24px #3ddcf544}
+.tag{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);background:#0e153088;backdrop-filter:blur(8px);border-radius:99px;padding:7px 14px;color:var(--muted);font-size:12px;font-weight:600}
+.tag::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--ok);box-shadow:0 0 0 0 #7be4b8aa;animation:ping 2s infinite}
+@keyframes ping{70%{box-shadow:0 0 0 9px #7be4b800}100%{box-shadow:0 0 0 0 #7be4b800}}
+.site-announcement{padding:13px 18px;border:1px solid var(--purple);background:#1d1a40;border-radius:14px;font-weight:700;text-align:center;margin:12px 0 0}
+.site-announcement[hidden],#site-extra-content[hidden]{display:none}
+#site-extra-content p{white-space:pre-line}
+
+/* hero */
+main{padding:56px 0 80px}
+.hero{position:relative;padding-bottom:8px}
+.radar{position:absolute;right:-60px;top:-70px;width:340px;height:340px;border-radius:50%;opacity:.55;pointer-events:none;border:1px solid #3ddcf533;background:repeating-radial-gradient(circle,transparent 0 46px,#3ddcf522 47px 48px);-webkit-mask-image:radial-gradient(circle,#000 40%,transparent 72%);mask-image:radial-gradient(circle,#000 40%,transparent 72%)}
+.radar::after{content:"";position:absolute;inset:0;border-radius:50%;background:conic-gradient(from 0deg,#3ddcf566,transparent 28%);animation:sweep 5s linear infinite}
+@keyframes sweep{to{transform:rotate(360deg)}}
+.eyebrow{color:var(--cyan);font-size:13px;font-weight:700;animation:rise .7s .1s var(--ease) both}
+h1{font-size:clamp(38px,7vw,68px);line-height:1.05;letter-spacing:-2.4px;font-weight:800;max-width:780px;margin:14px 0 20px;animation:rise .8s .2s var(--ease) both}
+h1 span:last-child{background:linear-gradient(100deg,var(--cyan),#b9acff 55%,var(--cyan));background-size:200% auto;-webkit-background-clip:text;background-clip:text;color:transparent;animation:flow 6s linear infinite}
+@keyframes flow{to{background-position:200% center}}
+.lead{max-width:620px;color:var(--muted);font-size:17px;margin:0;animation:rise .8s .3s var(--ease) both}
+.features{display:flex;flex-wrap:wrap;gap:10px;margin:28px 0 52px;animation:rise .8s .4s var(--ease) both}
+.features span{padding:8px 15px;background:#111a3a99;border:1px solid var(--line);border-radius:99px;font-size:13px;font-weight:500;transition:.25s var(--ease)}
+.features span:hover{border-color:var(--cyan);transform:translateY(-2px)}
+@keyframes rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+
+/* plans */
+.heading{margin-bottom:22px;animation:rise .8s .5s var(--ease) both}
+h2{font-size:26px;line-height:1.2;margin:0;letter-spacing:-.5px}
+.hint{color:var(--muted);font-size:14px;margin:8px 0 0;max-width:640px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;align-items:stretch}
+.card{position:relative;display:flex;flex-direction:column;min-height:300px;padding:28px;border-radius:24px;background:linear-gradient(160deg,var(--panel2),var(--panel) 80%);border:1px solid var(--line);transition:transform .35s var(--ease),border-color .35s,box-shadow .35s;animation:rise .8s var(--ease) both}
+.card:nth-child(1){animation-delay:.6s}.card:nth-child(2){animation-delay:.72s}.card:nth-child(3){animation-delay:.84s}
+.card:hover{transform:translateY(-8px);border-color:#4b5f9a;box-shadow:0 28px 60px #00000066}
+.card.featured{border-color:transparent;background:linear-gradient(160deg,#18214a,#0f1736 80%)}
+.card.featured::before{content:"";position:absolute;inset:-1px;border-radius:25px;padding:1px;background:linear-gradient(130deg,var(--cyan),var(--purple),var(--cyan));background-size:250% 250%;animation:flow2 5s linear infinite;-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none}
+.card.featured:hover{box-shadow:0 28px 70px #5b48e033}
+@keyframes flow2{0%{background-position:0 50%}100%{background-position:250% 50%}}
+.tier{font-size:15px;font-weight:700;display:flex;align-items:center;gap:8px}
+.pill{font-size:10px;font-weight:800;letter-spacing:.5px;color:#06241a;background:var(--ok);padding:3px 9px;border-radius:99px}
+.description{color:var(--muted);font-size:14px;margin:10px 0 22px}
+.price{font-size:46px;font-weight:800;line-height:1;letter-spacing:-1.5px;margin:auto 0 6px}
+.price small{font-size:13px;color:var(--muted);font-weight:500;letter-spacing:0}
+.period{font-size:13px;color:#c3cdea;margin-bottom:16px}
+.method{color:var(--muted);font-size:12px;margin-bottom:14px;padding-top:14px;border-top:1px solid var(--line)}
+button{width:100%;padding:14px;border:0;border-radius:12px;color:#061020;font:inherit;font-weight:800;font-size:14px;cursor:pointer;background:linear-gradient(100deg,var(--cyan),var(--purple));background-size:160% auto;transition:transform .2s var(--ease),box-shadow .2s,background-position .4s}
+button:hover{background-position:100% 0;box-shadow:0 8px 28px #7b6cff55;transform:translateY(-1px)}
+button:active{transform:scale(.98)}
+.card:not(.featured) button{background:#1b2750;color:var(--white);border:1px solid #33437a}
+.card:not(.featured) button:hover{background:linear-gradient(100deg,var(--cyan),var(--purple));color:#061020;border-color:transparent}
+button:focus-visible,a:focus-visible{outline:3px solid var(--cyan);outline-offset:3px}
+
+/* info panels */
+.notice{border:1px solid var(--line);background:#0d1430cc;border-radius:20px;padding:24px;color:var(--muted);font-size:14px;margin-top:26px;backdrop-filter:blur(6px)}
+.notice b{color:var(--white)}
+.notice h2{color:var(--white);margin-bottom:16px;font-size:20px}
+.notice a{color:var(--cyan);text-underline-offset:3px}
+.payment-extra-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.payment-extra-grid>div{padding:18px;border:1px solid var(--line);border-radius:16px;background:var(--panel);transition:.3s var(--ease)}
+.payment-extra-grid>div:hover{border-color:#4b5f9a;transform:translateY(-3px)}
+.payment-extra-grid strong{display:block;color:#fff;font-size:15px}
+.payment-extra-grid p{margin:8px 0;font-size:13px}
+.payment-extra-grid code{display:block;padding:10px 12px;margin:6px 0 10px;border-radius:10px;background:#080d20;border:1px dashed #33437a;font-size:13px;letter-spacing:.3px;overflow-wrap:anywhere;color:#e5e8fa}
+.payment-extra-grid button,.payment-extra-grid a{display:inline-block;width:auto;text-decoration:none;border-radius:10px;padding:9px 14px;font-size:13px;font-weight:700}
+.payment-extra-grid a{background:#2b5fb0;color:#fff;transition:.2s}
+.payment-extra-grid a:hover{background:#3a75d0}
+.payment-extra-grid small{display:block;color:#8e9cbc;line-height:1.55;margin-top:10px;font-size:12px}
+.farm-offer{display:grid;grid-template-columns:minmax(140px,240px) 1fr;align-items:center;gap:24px}
+.farm-offer img{display:block;width:100%;height:auto;border-radius:14px}
+.farm-ticket{display:inline-block;margin-top:12px;padding:11px 18px;border-radius:11px;background:#ffd878;color:#23172c!important;font-weight:800;text-decoration:none!important}
+.contact{display:grid;grid-template-columns:1fr auto;gap:24px;align-items:center;margin-top:40px;border-top:1px solid var(--line);padding-top:34px}
+.contact p{color:var(--muted);font-size:14px;margin:8px 0 0;max-width:600px}
+.contact>a{border:1px solid #415778;border-radius:12px;text-decoration:none;padding:13px 22px;color:var(--white);font-weight:700;transition:.25s var(--ease)}
+.contact>a:hover{background:var(--white);color:#0a1228;transform:translateY(-2px)}
+footer{padding:22px 0 32px;color:#7886a6;font-size:12px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;border-top:1px solid #ffffff0d}
+#toast{position:fixed;left:50%;transform:translateX(-50%);bottom:24px;background:#1b2a50;color:#f8fbff;border:1px solid var(--purple);padding:12px 18px;border-radius:12px;max-width:min(95%,440px);box-shadow:0 10px 30px #0008;display:none;z-index:30;animation:rise .3s var(--ease)}
+
+/* dialog */
+dialog{max-width:min(94vw,560px);width:100%;border:1px solid #4a5a96;border-radius:24px;padding:26px;color:var(--white);background:linear-gradient(150deg,#172346,#0e1530);box-shadow:0 30px 100px #000c}
+dialog[open]{animation:pop .35s var(--ease)}
+dialog::backdrop{background:rgba(2,4,14,.8);backdrop-filter:blur(8px);animation:fade .3s}
+@keyframes pop{from{opacity:0;transform:translateY(20px) scale(.96)}to{opacity:1;transform:none}}
+@keyframes fade{from{opacity:0}}
+.dialog-head{display:flex;align-items:start;justify-content:space-between;gap:16px}
+.dialog-head h2{margin:6px 0 0}
+.icon-close{width:40px;min-width:40px;padding:10px;background:#26365e;color:var(--white)}
+.icon-close:hover{transform:rotate(90deg)}
+.request-label{display:block;margin:22px 0 8px;font-size:13px;font-weight:700}
+#request-message{display:block;width:100%;resize:vertical;border:1px solid #3a4b78;background:#080d20;color:#f5f6ff;font:14px/1.6 inherit;border-radius:12px;padding:14px}
+.paypal-checkout{display:flex;align-items:center;justify-content:center;min-height:54px;margin-top:16px;border-radius:12px;background:linear-gradient(110deg,#215ca9,#2a90dc);color:#fff;font-weight:800;text-decoration:none;transition:.25s var(--ease)}
+.paypal-checkout:hover{transform:translateY(-2px);box-shadow:0 10px 30px #2487d355}
+.stripe-checkout{margin-top:10px;background:#1b2750;color:#fff;border:1px solid #33437a}
+.stripe-checkout[hidden]{display:none}
+.stripe-checkout:disabled{opacity:.7;cursor:wait}
+.after-payment{margin-top:16px;padding:18px;border-radius:14px;border:1px solid #3f6aa8;background:#112844;animation:fade .4s}
+.after-payment[hidden]{display:none}
+.after-payment h3{font-size:17px;margin:0 0 8px}
+.after-payment p{font-size:13px;margin:0 0 12px;color:#c5d7f5}
+.after-payment a{display:block;background:#3c578d;border-radius:10px;padding:13px;text-align:center;text-decoration:none;font-weight:800;color:#fff}
+.after-payment .after-payment-note{font-size:11px;margin:10px 0 0;color:#a9bfd9}
+.dialog-actions{display:flex;gap:10px;margin-top:12px}
+.dialog-actions>*{flex:1;text-align:center}
+.dialog-actions a{display:flex;align-items:center;justify-content:center;text-decoration:none;border-radius:12px;background:#38457a;padding:13px;font-weight:800;font-size:14px;transition:.2s}
+.dialog-actions a:hover{background:#4a5a9a}
+.minor-note{font-size:12px;color:var(--muted);margin:14px 0 0}
+.minor-note strong{color:#ecf1ff}
+
+@media(max-width:860px){.grid,.payment-extra-grid{grid-template-columns:1fr}.card{min-height:250px}.contact{grid-template-columns:1fr}.radar{display:none}main{padding-top:30px}}
+@media(max-width:600px){.farm-offer{grid-template-columns:1fr}.farm-offer img{max-width:270px}.dialog-actions{flex-direction:column}dialog{padding:18px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body class="sales-page">
+<div class="bg" aria-hidden="true"><div class="orb a"></div><div class="orb b"></div><div class="grid-bg"></div></div>
+<div class="container">
+  <header><div class="brand"><span>↗</span><span id="brand" data-site-field="brand_name">PVFINDER</span></div><span class="tag" data-site-field="sales_page_tag">Official sales page</span></header>
+  <div class="site-announcement" id="site-announcement" hidden></div>
+  <main>
+    <section class="hero">
+      <div class="radar" aria-hidden="true"></div>
+      <div class="eyebrow" data-site-field="sales_eyebrow">Access · Official prices in USD</div>
+      <h1><span data-site-field="sales_title_first">Choose your access to</span> <span data-site-field="sales_title_second">PVFinder.</span></h1>
+      <p class="lead" data-site-field="sales_intro">Every PVFinder plan and price is listed here. Pick your access and pay externally with PayPal. Then open a private ticket on Discord to request your key, which is delivered only after your payment is verified.</p>
+      <div class="features"><span data-site-field="sales_feature_one">🌎 International support</span><span data-site-field="sales_feature_two">💵 Prices in USD</span><span data-site-field="sales_feature_three">🎟️ Purchases via private ticket</span><span data-site-field="sales_feature_four">🔑 Keys delivered manually</span></div>
+    </section>
+
+    <section aria-label="Paid plans">
+      <div class="heading"><h2 data-site-field="sales_plans_title">Access plans</h2><p class="hint" data-site-field="sales_plans_hint">PVFinder prices in US dollars (USD). All plans are one-time payments with no automatic renewal.</p></div>
+      <div class="grid">
+        <article class="card"><div class="tier"><span class="plan-name">24 hours</span></div><p class="description">Radar access for 24 hours.</p><div class="price"><span class="plan-amount">$3</span> <small>USD</small></div><div class="period">24 hours · one-time payment</div><div class="method">Pay with PayPal · manual confirmation</div><button data-plan="daily" type="button" data-site-field="sales_button_label">Choose plan &amp; pay</button></article>
+        <article class="card featured"><div class="tier"><span class="plan-name">7 days</span> <span class="pill" data-site-field="sales_featured_tag">POPULAR</span></div><p class="description">Seven consecutive days of radar access.</p><div class="price"><span class="plan-amount">$17</span> <small>USD</small></div><div class="period">7 days · one-time payment</div><div class="method">Pay with PayPal · manual confirmation</div><button data-plan="weekly" type="button" data-site-field="sales_button_label">Choose plan &amp; pay</button></article>
+        <article class="card"><div class="tier"><span class="plan-name">30 days</span></div><p class="description">Thirty consecutive days of radar access.</p><div class="price"><span class="plan-amount">$35</span> <small>USD</small></div><div class="period">30 days · one-time payment</div><div class="method">Pay with PayPal · manual confirmation</div><button data-plan="monthly" type="button" data-site-field="sales_button_label">Choose plan &amp; pay</button></article>
+      </div>
+    </section>
+
+    <section class="notice" aria-labelledby="other-payment-methods">
+      <h2 id="other-payment-methods">💳 Payment methods</h2>
+      <div class="payment-extra-grid">
+        <div>
+          <strong>Mercado Pago · Mexican payments 🇲🇽</strong>
+          <p>Receiving CLABE:</p>
+          <code id="mp-clabe">722969011724089508</code>
+          <button class="copy-clabe" type="button">Copy CLABE</button>
+          <small>Bank transfer in MXN. Ask for the amount in pesos through a ticket before sending money. Transfers can't be paid with Mastercard and aren't verified automatically.</small>
+        </div>
+        <div>
+          <strong>Revolut · International payments 🌎</strong>
+          <p>Account number for receiving payments:</p>
+          <code id="revolut-account">170180014064961604</code>
+          <button class="copy-revolut" type="button">📋 Copy Revolut account</button>
+          <small>For international payments, check the bank details and supported countries in Revolut before sending. This number alone may not be enough for transfers from other countries. Ask for the MXN amount through a ticket and send your receipt; payment is verified manually.</small>
+        </div>
+        <div>
+          <strong>PayPal · International payment</strong>
+          <p>Choose a plan above to get the link with the USD amount, or open PayPal directly.</p>
+          <a href="https://paypal.me/PVFINSER0ficial" target="_blank" rel="noopener noreferrer">Pay with PayPal</a>
+          <small>With Mastercard or Visa: use the card checkout when the processor enables it. Availability in PayPal depends on your region and account.</small>
+        </div>
+      </div>
+      <p style="margin:18px 0 0">🔒 We don't publish a phone number or email. Payments and key delivery are verified manually through a private ticket.</p>
+    </section>
+
+    <div class="notice"><b>📱 PVFINDER PAY for iPhone</b> · You can also open the <a href="https://pvfinder-pay-ios.onrender.com/" target="_blank" rel="noopener noreferrer">iOS payments site</a>, where card, Apple Pay and Mercado Pago options appear when enabled by the processor. If a method shows as disabled, it doesn't accept payments yet.</div>
+
+    <div class="notice"><b>💳 How do I buy?</b> Choose one of the three plans, click <b>Pay with PayPal</b>, and check the recipient and amount in PayPal before paying. When buying a service, use the <b>goods and services</b> payment option if it appears. Then open a private ticket in <b>#abrir-ticket</b> on Discord and send your receipt. <b>The administrator confirms the money received and delivers the key manually.</b> This website doesn't charge you directly or activate access automatically; availability of international payments and currencies depends on PayPal. <a href="https://discord.com/channels/1565963083212398804/1568820015128645652" data-site-link="discord" target="_blank" rel="noopener noreferrer">🎟️ Already paid? Click here to send your receipt in a Discord ticket.</a></div>
+
+    <section id="site-extra-content" class="notice farm-offer" hidden>
+      <!-- Paste your original <img ... src="data:image/jpeg;base64,..."> here (the farming service graphic) -->
+      <img src="" alt="PVFINDER farming service graphic" loading="lazy" width="512" height="640">
+      <div><h2 data-site-field="sales_extra_title"></h2><p data-site-field="sales_extra_text"></p>
+      <a class="farm-ticket" data-site-link="discord" href="https://discord.com/channels/1565963083212398804/1568820015128645652" target="_blank" rel="noopener noreferrer">Open Discord ticket ↗</a></div>
+    </section>
+
+    <section class="contact"><div><h2 data-site-field="sales_contact_title">Already a PVFINDER member?</h2><p data-site-field="sales_contact_text">Open your Discord server and create a ticket in #abrir-ticket. If you're not a member yet, ask the administrator for an invite link. Prices are published only on this page.</p></div><a href="https://discord.com/channels/1565963083212398804/1568820015128645652" data-site-link="discord" target="_blank" rel="noopener noreferrer" data-site-field="sales_contact_button">Open Discord ↗</a></section>
+
+    <dialog id="purchase-dialog" aria-labelledby="purchase-title">
+      <div class="dialog-head"><div><span class="eyebrow">Access request</span><h2 id="purchase-title">Selected plan</h2></div><button type="button" class="icon-close" id="close-dialog" aria-label="Close">✕</button></div>
+      <p class="hint">Click the PayPal link to pay the amount for your plan. Check that the recipient is correct and that PayPal shows USD as the currency. Once the payment is confirmed, copy the message and open a private ticket on Discord to send your receipt.</p>
+      <label for="request-message" class="request-label">Purchase message</label>
+      <textarea id="request-message" rows="5" readonly spellcheck="false"></textarea>
+      <a id="paypal-pay-link" class="paypal-checkout" href="https://paypal.me/PVFINSER0ficial" target="_blank" rel="noopener noreferrer">💳 Pay with PayPal</a>
+      <button id="stripe-checkout" class="stripe-checkout" type="button" hidden>💳 Mastercard / Visa / Apple Pay (if available)</button>
+      <button class="copy-clabe stripe-checkout" type="button">🏦 Copy Mercado Pago CLABE (SPEI)</button>
+      <button class="copy-revolut stripe-checkout" type="button">🏦 Copy Revolut account (MXN)</button>
+      <p class="minor-note">Transfers are in MXN: ask for the exact amount in pesos through a ticket before paying.</p>
+      <section id="after-payment" class="after-payment" aria-live="polite" hidden>
+        <h3>🎟️ Already completed your payment?</h3>
+        <p><strong>Send me a screenshot of your payment receipt in a private Discord ticket.</strong> Go to <b>#abrir-ticket</b>, click the Ticket King button, attach the screenshot and tell us your plan. You can hide any personal or banking details that aren't needed to identify the transaction.</p>
+        <a href="https://discord.com/channels/1565963083212398804/1568820015128645652" data-site-link="discord" target="_blank" rel="noopener noreferrer">🎟️ Send receipt in a ticket ↗</a>
+        <p class="after-payment-note">This notice appears when PayPal opens. It doesn't mean the payment has been completed; the key is delivered only once the administrator confirms the money received.</p>
+      </section>
+      <div class="dialog-actions"><button id="copy-request" type="button">📋 Copy request</button><a id="discord-link" href="https://discord.com/channels/1565963083212398804/1568820015128645652" data-site-link="discord" target="_blank" rel="noopener noreferrer">Open Discord ↗</a></div>
+      <p class="minor-note">Clicking “Pay” takes you to PayPal. <strong>Payments are not verified automatically</strong>: check the transaction in your account before handing over any key. To open the Discord ticket you must be a PVFINDER member.</p>
+    </dialog>
+  </main>
+  <footer><span>© <span id="year"></span> <span id="footerBrand" data-site-field="brand_name">PVFinder</span></span><span data-site-field="sales_footer_text">Official pricing page · Purchase via ticket · Manual delivery</span></footer>
+</div>
+<div id="toast" role="alert" aria-live="polite"></div>
+<script src="/site-config.js" defer></script>
+<script src="/ventas.js?v=revolut-20261114" defer></script>
+<script src="/branding.js"></script>
+</body>
+</html>
